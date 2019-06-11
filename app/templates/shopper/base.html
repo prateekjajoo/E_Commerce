@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>CDN E-commerce Webside</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel='shortcut icon' href='{% static "themes/images/favicon.ico" %}' type='image/x-icon' />
+
+		<meta name="description" content="">
+		<!--[if ie]><meta content='IE=8' http-equiv='X-UA-Compatible'/><![endif]-->
+		<!-- bootstrap -->
+		<link href='{% static "bootstrap/css/bootstrap.min.css" %}' rel="stylesheet">
+		<link href='{% static "bootstrap/css/bootstrap-responsive.min.css" %}' rel="stylesheet">
+		<link href='{% static "themes/css/bootstrappage.css" %}' rel="stylesheet"/>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<!-- global styles -->
+		<link href='{% static "themes/css/flexslider.css" %}' rel="stylesheet"/>
+		<link href='{% static "themes/css/main.css" %}' rel="stylesheet"/>
+		<link href='{% static "themes/css/jquery.fancybox.css" %}' rel="stylesheet"/>
+		<!-- scripts -->
+		<script src='{% static "themes/js/jquery-1.7.2.min.js" %}'></script>
+		<script src='{% static "bootstrap/js/bootstrap.min.js" %}'></script>
+		<script src='{% static "themes/js/superfish.js" %}'></script>
+		<script src='{% static "themes/js/jquery.scrolltotop.js" %}'></script>
+		<script src='{% static "themes/js/jquery.fancybox.js" %}'></script>
+
+		<!--[if lt IE 9]>
+			<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+			<script src='{% static "js/respond.min.js" %}'></script>
+		<![endif]-->
+
+
+
+	</head>
+    <body>
+		<div id="top-bar" class="container">
+			<div class="row">
+				<div class="span4">
+					<form method="POST" class="search_form">
+						<input type="text" class="input-block-level search-query" Placeholder="eg. T-sirt">
+					</form>
+				</div>
+				<div class="span8">
+					<div class="account pull-right">
+							<ul class="user-menu">
+							<li><a href="#">My Account</a></li>
+							<li><a href="{% url 'cart' %}">Your Cart</a></li>
+							<li><a href="{% url 'checkout' %}">Checkout</a></li>
+							<li><a href="{% url 'register' %}">Login</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="wrapper" class="container">
+			<section class="navbar main-menu">
+				<div class="navbar-inner main-menu">
+					<a href="{% url 'home' %}" class="logo pull-left"><img src='{% static "themes/images/logo.png" %}' class="site_logo" alt=""></a>
+					<nav id="menu" class="pull-right">
+
+
+                        <ul>
+							{% for key, value in request.session.category_dict.items %}
+
+							<li><a href="{% url 'product' category_name=key %}">{{key}}</a>
+								<ul>
+									{% for val in value %}
+									<li><a href="{% url 'product' category_name=key subcategory_name=val  %}">{{val}}</a></li>
+									{% endfor %}
+
+								</ul>
+							</li>
+
+							{% endfor %}
+<!--							<li><a href="./products.html">Hangbag</a></li>-->
+<!--							<li><a href="./products.html">Best Seller</a></li>-->
+<!--							<li><a href="./products.html">Top Seller</a></li>-->
+						</ul>
+
+					</nav>
+				</div>
+			</section>
+			<section class="header_text sub">
+			<img class="pageBanner" src='{% static "themes/images/pageBanner.png" %}' alt="New products" >
+				<h4><span>New products</span></h4>
+			</section>
+
+                   {% block content %} {% endblock %}
+
+			<section id="footer-bar">
+				<div class="row">
+					<div class="span3">
+						<h4>Navigation</h4>
+						<ul class="nav">
+							<li><a href="{% url 'home' %}">Homepage</a></li>
+							<li><a href="#">About Us</a></li>
+							<li><a href="{% url 'contect' %}">Contac Us</a></li>
+							<li><a href="{% url 'cart' %}">Your Cart</a></li>
+							<li><a href="{% url 'register' %}">Login</a></li>
+						</ul>
+					</div>
+					<div class="span4">
+						<h4>My Account</h4>
+						<ul class="nav">
+							<li><a href="#">My Account</a></li>
+							<li><a href="#">Order History</a></li>
+							<li><a href="#">Wish List</a></li>
+							<li><a href="#">Newsletter</a></li>
+						</ul>
+					</div>
+					<div class="span5">
+						<p class="logo"><img src='{% static "themes/images/logo.png" %}' class="site_logo" alt=""></p>
+						<p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. the  Lorem Ipsum has been the industry's standard dummy text ever since the you.</p>
+						<br/>
+						<span class="social_icons">
+							<a class="facebook" href="#">Facebook</a>
+							<a class="twitter" href="#">Twitter</a>
+							<a class="skype" href="#">Skype</a>
+							<a class="vimeo" href="#">Vimeo</a>
+						</span>
+					</div>
+				</div>
+			</section>
+			<section id="copyright">
+				<span>Copyright @ CDN Software Solutions Pvt. Ltd. 2018 - All rights reserved | Privacy-Policy| Sitemap</span>
+			</section>
+		</div>
+		<script src='{% static "themes/js/common.js" %}'></script>
+    </body>
+</html>
